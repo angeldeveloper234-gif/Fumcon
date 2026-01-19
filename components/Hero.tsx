@@ -73,29 +73,6 @@ const Hero: React.FC = () => {
             </div>
           </div>
 
-          {/* Visual Column / Card Overlay */}
-          <div className="hidden lg:block w-full lg:w-1/2 relative">
-             <div className="relative z-10 bg-white/5 backdrop-blur-xl border border-white/20 p-8 rounded-3xl shadow-2xl transform rotate-3 hover:rotate-0 transition-all duration-700">
-                <img 
-                    src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&q=80&w=800" 
-                    alt="Fumigation Expert" 
-                    className="rounded-2xl w-full h-80 object-cover shadow-lg mb-6"
-                />
-                <div className="flex justify-between items-end">
-                    <div>
-                        <p className="text-brand-yellow text-sm font-bold uppercase mb-1">Resultado Garantizado</p>
-                        <h3 className="text-2xl font-bold text-white">Protección Total</h3>
-                    </div>
-                    <div className="bg-brand-green px-4 py-2 rounded-lg text-white font-bold text-center">
-                        <span className="block text-xs uppercase opacity-80">Desde</span>
-                        $500
-                    </div>
-                </div>
-             </div>
-             {/* Decorative blob */}
-             <div className="absolute -top-10 -right-10 w-64 h-64 bg-brand-green/30 rounded-full blur-3xl -z-10"></div>
-          </div>
-
         </div>
       </div>
     </section>
