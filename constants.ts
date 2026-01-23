@@ -11,7 +11,7 @@ export const COLORS = {
 export const CONTACT_INFO = {
   phone: "+52 999 123 4567",
   whatsapp: "+52 999 123 4567",
-  email: "contacto@fumigaexpert.com",
+  email: "fumcon@outlook.com",
   schedule: "24/7"
 };
 

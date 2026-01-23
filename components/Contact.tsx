@@ -6,14 +6,44 @@ import LocationModal from './LocationModal';
 const Contact: React.FC = () => {
     const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
     const [isModalOpen, setIsModalOpen] = useState(false);
+    
+    // Form State
+    const [formData, setFormData] = useState({
+        name: '',
+        phone: '',
+        service: '',
+        message: ''
+    });
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+        const { id, value } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [id]: value
+        }));
+    };
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        // Fallback for form behavior if we were to keep it, but button now triggers modal
         setFormStatus('submitting');
+
+        // Construct email body
+        const subject = encodeURIComponent("Nueva Solicitud de Cotización - Sitio Web");
+        const body = encodeURIComponent(
+            `Nombre: ${formData.name}\n` +
+            `Teléfono: ${formData.phone}\n` +
+            `Servicio de interés: ${formData.service}\n` +
+            `Detalles adicionales: ${formData.message}`
+        );
+
+        // Open email client
+        window.location.href = `mailto:${CONTACT_INFO.email}?subject=${subject}&body=${body}`;
+
+        // Show success message
         setTimeout(() => {
             setFormStatus('success');
-        }, 1500);
+            setFormData({ name: '', phone: '', service: '', message: '' });
+        }, 1000);
     };
 
     const handleOpenModal = () => {
@@ -70,8 +100,8 @@ const Contact: React.FC = () => {
                             <div className="w-16 h-16 bg-green-100 text-brand-green rounded-full flex items-center justify-center mx-auto mb-4">
                                 <Send size={32} />
                             </div>
-                            <p className="font-bold text-2xl text-brand-dark mb-2">¡Mensaje Recibido!</p>
-                            <p className="text-gray-500 mb-6">Un especialista revisará tu caso en breve.</p>
+                            <p className="font-bold text-2xl text-brand-dark mb-2">¡Solicitud Generada!</p>
+                            <p className="text-gray-500 mb-6">Se ha abierto tu cliente de correo para enviar la información.</p>
                             <button 
                                 onClick={() => setFormStatus('idle')}
                                 className="text-brand-green font-bold hover:underline"
@@ -82,8 +112,22 @@ const Contact: React.FC = () => {
                     ) : (
                         <form onSubmit={handleSubmit} className="space-y-6">
                             <div className="grid md:grid-cols-2 gap-6">
-                                <InputGroup label="Nombre" id="name" placeholder="Tu nombre completo" type="text" />
-                                <InputGroup label="Teléfono" id="phone" placeholder="10 dígitos" type="tel" />
+                                <InputGroup 
+                                    label="Nombre" 
+                                    id="name" 
+                                    placeholder="Tu nombre completo" 
+                                    type="text" 
+                                    value={formData.name}
+                                    onChange={handleInputChange}
+                                />
+                                <InputGroup 
+                                    label="Teléfono" 
+                                    id="phone" 
+                                    placeholder="10 dígitos" 
+                                    type="tel" 
+                                    value={formData.phone}
+                                    onChange={handleInputChange}
+                                />
                             </div>
 
                             <div>
@@ -91,15 +135,18 @@ const Contact: React.FC = () => {
                                 <div className="relative">
                                     <select 
                                         id="service" 
+                                        value={formData.service}
+                                        onChange={handleInputChange}
                                         className="w-full px-6 py-4 bg-white border-0 rounded-2xl focus:ring-2 focus:ring-brand-green shadow-sm outline-none transition-all text-gray-700 appearance-none"
+                                        required
                                     >
-                                        <option>Selecciona el tipo de plaga...</option>
-                                        <option>Cucarachas</option>
-                                        <option>Termitas</option>
-                                        <option>Roedores</option>
-                                        <option>Preventivo General</option>
-                                        <option>Negocio / Comercial</option>
-                                        <option>Otro</option>
+                                        <option value="">Selecciona el tipo de plaga...</option>
+                                        <option value="Cucarachas">Cucarachas</option>
+                                        <option value="Termitas">Termitas</option>
+                                        <option value="Roedores">Roedores</option>
+                                        <option value="Preventivo General">Preventivo General</option>
+                                        <option value="Negocio / Comercial">Negocio / Comercial</option>
+                                        <option value="Otro">Otro</option>
                                     </select>
                                     <div className="absolute right-6 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-400">▼</div>
                                 </div>
@@ -109,6 +156,8 @@ const Contact: React.FC = () => {
                                 <label htmlFor="message" className="block text-sm font-bold text-brand-dark mb-2 ml-2">Detalles</label>
                                 <textarea 
                                     id="message" 
+                                    value={formData.message}
+                                    onChange={handleInputChange}
                                     rows={4} 
                                     className="w-full px-6 py-4 bg-white border-0 rounded-2xl focus:ring-2 focus:ring-brand-green shadow-sm outline-none transition-all text-gray-700 resize-none"
                                     placeholder="¿Dónde viste la plaga? ¿Hace cuánto tiempo?"
@@ -116,8 +165,7 @@ const Contact: React.FC = () => {
                             </div>
 
                             <button 
-                                type="button" 
-                                onClick={handleOpenModal}
+                                type="submit" 
                                 className="w-full bg-brand-dark text-white font-bold py-5 rounded-2xl hover:bg-brand-green transition-all duration-300 flex items-center justify-center gap-3 text-lg shadow-lg hover:shadow-green-900/20 transform hover:-translate-y-1"
                             >
                                 Hablar con un especialista <ArrowRight size={20} />
@@ -163,12 +211,23 @@ const ContactItem: React.FC<ContactItemProps> = ({ icon: Icon, title, content, h
     </div>
 );
 
-const InputGroup: React.FC<{label: string, id: string, placeholder: string, type: string}> = ({ label, id, placeholder, type }) => (
+interface InputGroupProps {
+    label: string;
+    id: string;
+    placeholder: string;
+    type: string;
+    value: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const InputGroup: React.FC<InputGroupProps> = ({ label, id, placeholder, type, value, onChange }) => (
     <div>
         <label htmlFor={id} className="block text-sm font-bold text-brand-dark mb-2 ml-2">{label}</label>
         <input 
             type={type} 
             id={id} 
+            value={value}
+            onChange={onChange}
             required 
             className="w-full px-6 py-4 bg-white border-0 rounded-2xl focus:ring-2 focus:ring-brand-green shadow-sm outline-none transition-all text-gray-700 placeholder-gray-300"
             placeholder={placeholder}

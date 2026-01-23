@@ -31,10 +31,6 @@ const Footer: React.FC = () => {
 
         <div className="flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 font-medium">
             <p>&copy; {new Date().getFullYear()} FUMCON del Sureste S.A. de C.V. Todos los derechos reservados.</p>
-            <div className="flex gap-4 mt-4 md:mt-0">
-                <span className="hover:text-gray-300 cursor-pointer transition-colors">Aviso de Privacidad</span>
-                <span className="hover:text-gray-300 cursor-pointer transition-colors">Términos y Condiciones</span>
-            </div>
         </div>
       </div>
     </footer>
