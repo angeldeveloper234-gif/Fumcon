@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ArrowRight, CheckCircle2, ShieldCheck } from 'lucide-react';
+import LocationModal from './LocationModal';
 
 const Hero: React.FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <section id="hero" className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-brand-dark">
       {/* Background Image */}
@@ -19,7 +22,7 @@ const Hero: React.FC = () => {
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
           
           {/* Content Column */}
-          <div className="w-full lg:w-1/2 text-white space-y-8">
+          <div className="w-full lg:w-3/4 text-white space-y-8">
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20">
               <span className="w-2 h-2 rounded-full bg-brand-yellow animate-pulse shadow-glow"></span>
               <span className="text-brand-yellow font-bold text-xs uppercase tracking-widest">Disponibilidad 24/7</span>
@@ -44,15 +47,13 @@ const Hero: React.FC = () => {
               >
                 Cotizar ahora
               </a>
-              <a
-                href="https://wa.me/529991234567"
-                target="_blank"
-                rel="noreferrer"
+              <button
+                onClick={() => setIsModalOpen(true)}
                 className="group px-8 py-4 rounded-full font-bold text-white border border-white/30 hover:bg-white hover:text-brand-dark transition-all flex items-center gap-2"
               >
                 WhatsApp inmediato 
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-              </a>
+              </button>
             </div>
 
             <div className="pt-8 flex gap-8 border-t border-white/10">
@@ -72,9 +73,11 @@ const Hero: React.FC = () => {
               </div>
             </div>
           </div>
-
+          
         </div>
       </div>
+      
+      <LocationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>
   );
 };

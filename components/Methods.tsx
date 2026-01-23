@@ -21,10 +21,11 @@ const Methods: React.FC = () => {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {/* Changed from Grid to Flex to center odd number of items (3 top, 2 bottom) */}
+        <div className="flex flex-wrap justify-center gap-8 lg:gap-12">
           {METHODS.map((method, index) => (
-            <div key={index} className="group">
-              <div className="border-l-2 border-white/20 pl-6 py-2 group-hover:border-brand-green transition-colors duration-500">
+            <div key={index} className="group w-full md:w-[calc(50%-2rem)] lg:w-[calc(30%)]">
+              <div className="border-l-2 border-white/20 pl-6 py-2 group-hover:border-brand-green transition-colors duration-500 h-full flex flex-col">
                 <div className="mb-6 opacity-50 group-hover:opacity-100 transition-opacity">
                    <method.icon size={32} className="text-brand-green group-hover:text-brand-yellow transition-colors" />
                 </div>

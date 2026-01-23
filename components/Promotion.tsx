@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Tag, ArrowRight } from 'lucide-react';
+import LocationModal from './LocationModal';
 
 const Promotion: React.FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <section id="promociones" className="py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -29,7 +32,7 @@ const Promotion: React.FC = () => {
                     <div className="bg-white p-8 rounded-3xl shadow-xl w-full max-w-sm transform hover:scale-105 transition-transform duration-300">
                         <p className="text-gray-400 text-sm font-bold uppercase tracking-wider text-center mb-2">Servicios Desde</p>
                         <div className="flex justify-center items-baseline mb-6">
-                            <span className="text-5xl font-extrabold text-brand-dark">$500</span>
+                            <span className="text-5xl font-extrabold text-brand-dark">$750</span>
                             <span className="text-xl text-gray-500 font-medium ml-1">MXN</span>
                         </div>
                         <ul className="text-center space-y-2 mb-8 text-gray-600 text-sm">
@@ -37,18 +40,19 @@ const Promotion: React.FC = () => {
                             <li className="flex items-center justify-center gap-2">✓ Productos Seguros</li>
                             <li className="flex items-center justify-center gap-2">✓ Certificado Digital</li>
                         </ul>
-                        <a 
-                            href="#contacto"
+                        <button 
+                            onClick={() => setIsModalOpen(true)}
                             className="w-full block bg-brand-yellow text-brand-dark py-4 rounded-xl font-bold text-center hover:bg-yellow-300 transition-colors shadow-lg"
                         >
                             Agendar Inspección
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
 
         </div>
       </div>
+      <LocationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>
   );
 };

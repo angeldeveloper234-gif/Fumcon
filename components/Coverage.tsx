@@ -16,13 +16,13 @@ const Coverage: React.FC = () => {
                     </p>
 
                     <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
-                        <ul className="space-y-4">
+                        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-6">
                             {COVERAGE_AREAS.map((area, idx) => (
-                                <li key={idx} className="flex items-center gap-4 text-white font-medium border-b border-white/5 pb-2 last:border-0 last:pb-0">
-                                    <div className="bg-brand-green p-1.5 rounded-full">
+                                <li key={idx} className="flex items-center gap-3 text-white font-medium">
+                                    <div className="bg-brand-green p-1.5 rounded-full shrink-0">
                                         <MapPin className="text-white w-4 h-4" />
                                     </div>
-                                    {area}
+                                    <span className="text-sm md:text-base leading-tight">{area}</span>
                                 </li>
                             ))}
                         </ul>
@@ -31,22 +31,11 @@ const Coverage: React.FC = () => {
 
                 <div className="relative h-96 lg:h-auto bg-gray-800">
                     <img 
-                        src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=1200" 
-                        alt="Mapa de cobertura" 
-                        className="w-full h-full object-cover opacity-80 mix-blend-overlay"
+                        src="https://nmnofwinjufyyykyaelc.supabase.co/storage/v1/object/sign/Fumcon/mapa.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hNzRlMzZmMy0wZDFhLTQ5NWMtYWMwMS0zNjMzMDY0Y2YwZTIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJGdW1jb24vbWFwYS5wbmciLCJpYXQiOjE3NjkxOTc4ODAsImV4cCI6MTgzMjI2OTg4MH0.zYaftJqTYPVO4YzDCB3q4as_XgJm9-_JjFXzaQ_X-Uw" 
+                        alt="Mapa de cobertura en Quintana Roo y Yucatán" 
+                        className="w-full h-full object-cover object-center"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent lg:bg-gradient-to-l"></div>
-                    
-                    {/* Floating Map Marker UI */}
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-                        <div className="relative">
-                            <span className="w-4 h-4 bg-brand-yellow rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-ping"></span>
-                            <MapPin size={48} className="text-brand-yellow relative z-10 drop-shadow-lg" fill="currentColor" />
-                        </div>
-                        <div className="mt-4 bg-white px-4 py-2 rounded-lg shadow-xl font-bold text-brand-dark text-sm whitespace-nowrap">
-                            Operando Ahora
-                        </div>
-                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/40 via-transparent to-transparent lg:bg-gradient-to-l lg:from-brand-dark/20 pointer-events-none"></div>
                 </div>
 
             </div>

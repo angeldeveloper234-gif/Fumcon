@@ -1,16 +1,23 @@
 import React, { useState } from 'react';
 import { Phone, Mail, Clock, Send, MapPin, ArrowRight } from 'lucide-react';
 import { CONTACT_INFO } from '../constants';
+import LocationModal from './LocationModal';
 
 const Contact: React.FC = () => {
     const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        // Fallback for form behavior if we were to keep it, but button now triggers modal
         setFormStatus('submitting');
         setTimeout(() => {
             setFormStatus('success');
         }, 1500);
+    };
+
+    const handleOpenModal = () => {
+        setIsModalOpen(true);
     };
 
   return (
@@ -31,8 +38,8 @@ const Contact: React.FC = () => {
                     <ContactItem 
                         icon={Phone} 
                         title="Llamada Directa" 
-                        content={CONTACT_INFO.phone} 
-                        href={`tel:${CONTACT_INFO.phone.replace(/\s/g, '')}`} 
+                        content="Ver Sucursales" 
+                        onClick={handleOpenModal}
                     />
                     <ContactItem 
                         icon={Mail} 
@@ -109,15 +116,11 @@ const Contact: React.FC = () => {
                             </div>
 
                             <button 
-                                type="submit" 
-                                disabled={formStatus === 'submitting'}
-                                className="w-full bg-brand-dark text-white font-bold py-5 rounded-2xl hover:bg-brand-green transition-all duration-300 flex items-center justify-center gap-3 text-lg shadow-lg hover:shadow-green-900/20 disabled:opacity-70 disabled:cursor-not-allowed transform hover:-translate-y-1"
+                                type="button" 
+                                onClick={handleOpenModal}
+                                className="w-full bg-brand-dark text-white font-bold py-5 rounded-2xl hover:bg-brand-green transition-all duration-300 flex items-center justify-center gap-3 text-lg shadow-lg hover:shadow-green-900/20 transform hover:-translate-y-1"
                             >
-                                {formStatus === 'submitting' ? (
-                                    'Procesando...'
-                                ) : (
-                                    <>Hablar con un especialista <ArrowRight size={20} /></>
-                                )}
+                                Hablar con un especialista <ArrowRight size={20} />
                             </button>
                         </form>
                     )}
@@ -126,18 +129,32 @@ const Contact: React.FC = () => {
 
         </div>
       </div>
+      
+      <LocationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>
   );
 };
 
-const ContactItem: React.FC<{icon: React.ElementType, title: string, content: string, href?: string}> = ({ icon: Icon, title, content, href }) => (
+interface ContactItemProps {
+    icon: React.ElementType;
+    title: string;
+    content: string;
+    href?: string;
+    onClick?: () => void;
+}
+
+const ContactItem: React.FC<ContactItemProps> = ({ icon: Icon, title, content, href, onClick }) => (
     <div className="flex items-center gap-4 group">
         <div className="w-14 h-14 bg-white border border-gray-100 rounded-2xl flex items-center justify-center text-brand-dark group-hover:bg-brand-yellow group-hover:border-transparent transition-colors duration-300 shadow-sm">
             <Icon size={24} />
         </div>
         <div>
             <h4 className="font-bold text-brand-dark text-lg">{title}</h4>
-            {href ? (
+            {onClick ? (
+                 <button onClick={onClick} className="text-gray-500 hover:text-brand-green transition-colors font-medium text-left">
+                    {content}
+                 </button>
+            ) : href ? (
                 <a href={href} className="text-gray-500 hover:text-brand-green transition-colors font-medium">{content}</a>
             ) : (
                 <p className="text-gray-500 font-medium" dangerouslySetInnerHTML={{ __html: content }}></p>
