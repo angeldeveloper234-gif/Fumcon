@@ -6,14 +6,14 @@ const Services: React.FC = () => {
   return (
     <section id="servicios" className="py-24 bg-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
           <div className="max-w-2xl">
             <span className="text-brand-green font-bold tracking-widest uppercase text-xs mb-2 block">Nuestros Servicios</span>
             <h2 className="text-4xl lg:text-5xl font-bold text-brand-dark tracking-tight">
               Control Especializado <br /> de Plagas
             </h2>
           </div>
-          <p className="text-gray-500 max-w-sm text-right md:text-left mb-2">
+          <p className="text-gray-500 max-w-sm text-left mb-2">
             Servicio integral adaptado a cada espacio. Recupera la tranquilidad de tu hogar o negocio hoy mismo.
           </p>
         </div>

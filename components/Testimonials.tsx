@@ -6,7 +6,7 @@ const Testimonials: React.FC = () => {
   return (
     <section id="testimonios" className="py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16">
           <div>
             <span className="text-brand-green font-bold tracking-widest uppercase text-xs mb-2 block">Opiniones Reales</span>
             <h2 className="text-4xl font-bold text-brand-dark">Confianza Verificada</h2>

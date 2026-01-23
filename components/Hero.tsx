@@ -19,7 +19,7 @@ const Hero: React.FC = () => {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-12 lg:py-0">
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+        <div className="flex flex-col lg:flex-row items-start lg:items-center gap-12 lg:gap-20">
           
           {/* Content Column */}
           <div className="w-full lg:w-3/4 text-white space-y-8">

@@ -14,7 +14,7 @@ const Promotion: React.FC = () => {
             <div className="absolute top-0 right-0 w-full h-full opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
             
             <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12">
-                <div className="lg:w-3/5 text-center lg:text-left">
+                <div className="lg:w-3/5 text-left">
                     <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-1.5 rounded-full text-white text-xs font-bold mb-6 tracking-wide uppercase">
                         <Tag size={14} className="text-brand-yellow" />
                         Oferta Limitada
