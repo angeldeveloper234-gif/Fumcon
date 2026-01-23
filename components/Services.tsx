@@ -33,7 +33,7 @@ const Services: React.FC = () => {
                 before:transition-all before:duration-300
               `}
               style={{
-                backgroundImage: pest.image ? `url('${pest.image}')` : undefined,
+                backgroundImage: pest.image ? `url("${pest.image}")` : undefined,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
